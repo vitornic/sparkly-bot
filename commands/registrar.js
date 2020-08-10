@@ -28,7 +28,10 @@ module.exports = {
                 *Nick*: ${nick}\n`
     })
 
-    message.member.setNickname(message.content.replace(`${message.author.username}`, `${message.author.username}` + `${nick}`))
+     if (message.member === null || !message.member.hasPermission('ADMINISTRATOR')) commands = commands.filter(c => !c.help.admin)
+      message.member.setNickname(message.content.replace(`${message.author.username}`, `${message.author.username}` + `${nick}`))
+      .catch(() => message.reply('eu não tenho permissões editar seu nick 😥'))
+
 
     channel.send({embed}).then((newMessage) =>
     newMessage.react('✅').then(newMessage.react('❌'))
